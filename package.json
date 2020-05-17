@@ -2,7 +2,7 @@
   "name": "inventaire",
   "homepage": "https://inventaire.io",
   "description": "a libre collaborative resources mapper powered by open-knowledge (server-side)",
-  "main": "server/server.js",
+  "main": "server/server.ts",
   "scripts": {
     "add-new-active-lang": "./scripts/add_new_active_lang",
     "backup-databases": "./scripts/backup_databases/backup_databases.js",
@@ -14,9 +14,9 @@
     "db-actions:stop-emails-to-address": "./scripts/db_actions/stop_emails_to_address.js",
     "db-actions:delete-user": "./scripts/db_actions/delete_user.js",
     "create-dumps": "./scripts/dumps/prepare_dumps",
-    "debug": "DEBUG=express:* node server/server.js",
+    "debug": "DEBUG=express:* ts-node -r tsconfig-paths/register server/server.ts",
     "delete-api-test-databases": "./tests/api/scripts/delete_databases",
-    "inspect": "node --inspect --inspect-brk server/server.js",
+    "inspect": "ts-node -r tsconfig-paths/register --inspect --inspect-brk server/server.ts",
     "install-client": "./scripts/install_client",
     "install-i18n": "./scripts/install_i18n",
     "kill-tests-server": "./tests/api/scripts/kill_tests_server",
@@ -29,7 +29,7 @@
     "preview-email": "./scripts/preview_email",
     "replicate-tests-db": "./scripts/replicate_tests_db.js",
     "reset-cache": "rm -rf db/leveldb && mkdir db/leveldb",
-    "start": "node server/server.js",
+    "start": "ts-node -r tsconfig-paths/register server/server.ts",
     "start-tests-server": "./tests/api/scripts/start_tests_server",
     "test": "./scripts/run_unit_tests",
     "test-api": "./tests/api/scripts/test_api",
@@ -94,6 +94,9 @@
     "wikidata-sdk": "^5.9.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/lodash": "^4.14.151",
+    "@types/node": "^14.0.1",
     "couchdb-backup": "^1.0.0",
     "eslint": "^6.6.0",
     "eslint-config-standard": "^14.1.0",
@@ -110,7 +113,10 @@
     "papaparse": "^5.2.0",
     "should": "^11.1.1",
     "sinon": "^1.17.1",
-    "supervisor": "^0.10.0"
+    "supervisor": "^0.10.0",
+    "ts-node": "^8.10.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.2"
   },
   "engines": {
     "node": ">= 8"

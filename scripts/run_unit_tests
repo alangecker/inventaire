@@ -2,7 +2,7 @@
 files=$1
 export NODE_ENV=tests-unit
 if [ "$files" != "" ] ; then
-  mocha --exit "$files"
+  mocha --require ts-node/register --require tsconfig-paths/register --exit "$files"
 else
-  mocha --exit tests/unit/models/* tests/unit/libs/* tests/unit/controllers/*
+  mocha --require ts-node/register --require tsconfig-paths/register --exit tests/unit/models/* tests/unit/libs/* tests/unit/controllers/*
 fi

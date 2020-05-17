@@ -1,7 +1,7 @@
-const CONFIG = require('config')
-const __ = CONFIG.universalPath
-const _ = __.require('builders', 'utils')
-const express = require('express')
+import CONFIG from 'config'
+import express from 'express'
+import _ from '@/builders/utils'
+
 const { env, port, host, name } = CONFIG
 
 const middlewares = require('./middlewares/middlewares')
@@ -33,13 +33,15 @@ app.use(require('./middlewares/error_handler'))
 
 app.disable('x-powered-by')
 
-module.exports = () => new Promise((resolve, reject) => {
-  app.listen(port, host, err => {
-    if (err) {
-      reject(err)
-    } else {
-      _.info(`${name} server is listening on port ${port}...`)
-      resolve(app)
-    }
+export default function init_express() {
+  return new Promise((resolve, reject) => {
+    app.listen(port, host, err => {
+      if (err) {
+        reject(err)
+      } else {
+        _.info(`${name} server is listening on port ${port}...`)
+        resolve(app)
+      }
+    })
   })
-})
+}

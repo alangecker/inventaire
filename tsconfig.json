@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "allowJs": true,
+      "checkJs": false,
+      "esModuleInterop": true,
+      "downlevelIteration": true,
+      "module": "CommonJS",
+      "lib": ["es2016"],
+      "noUnusedLocals": true,
+      "outDir": "dist",
+      "skipLibCheck": true,
+      "strict": false,
+      "target": "esnext",
+      "types": ["node"],
+      "noImplicitAny": false,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [ "server/*" ]
+      }
+    },
+  }

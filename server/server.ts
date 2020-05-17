@@ -1,24 +1,26 @@
 console.time('startup')
-const CONFIG = require('config')
+import CONFIG from 'config'
+import beforeStartup from '@/lib/startup/before'
+import afterStartup from '@/lib/startup/after'
+import waitForCouchInit from '@/db/couch/init'
+import initExpress from '@/init_express'
+import { Log, Error } from '@/lib/utils/logs'
+
 // Signal to other CONFIG consumers that they are in a server context
 // and not simply scripts being executed in the wild
 CONFIG.serverMode = true
 
-const __ = CONFIG.universalPath
-const _ = __.require('builders', 'utils')
-
-__.require('lib', 'startup/before')()
+beforeStartup()
 
 // Starting to make CouchDB initialization checks
-const waitForCouchInit = __.require('couch', 'init')
 // Meanwhile, start setting up the server.
 // Startup time is mostly due to the time needed to require
 // all files from controllers, middlewares, libs, etc
-const initExpress = require('./init_express')
 
 waitForCouchInit()
-.then(_.Log('couch init'))
+.then(Log('couch init'))
 .then(initExpress)
 .then(() => console.timeEnd('startup'))
-.then(__.require('lib', 'startup/after'))
-.catch(_.Error('init err'))
+.then(afterStartup)
+.catch(Error('init err'))
+
